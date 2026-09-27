@@ -1,15 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
+import { Libre_Caslon_Text, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/Navbar";
+import { BackgroundLines } from "@/components/BackgroundLines";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+const caslon = Libre_Caslon_Text({
   subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-caslon",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const hanken = Hanken_Grotesk({
   subsets: ["latin"],
+  variable: "--font-hanken",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -18,12 +34,20 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  console.log("1 → root layout");
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${caslon.variable} ${hanken.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <div className="relative z-10">
+          <BackgroundLines/>
+          <Navbar/>
+          {children}
+        </div>
+
+      </body>
     </html>
   );
 }
